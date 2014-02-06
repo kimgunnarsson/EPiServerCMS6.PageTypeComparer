@@ -1,0 +1,113 @@
+﻿@using PageTypeComparer.Core.Common
+@model PageTypeComparer.Web.Models.ResultModel
+
+@if (Model != null)
+{
+    if (Model.Result != null)
+    {
+        var identicalPageTypes = Model.Result.Where(x => x.ResultType == Constants.ResultType.Identical);
+        var singlePageTypes = Model.Result.Where(x => x.ResultType == Constants.ResultType.Single);
+        var mismatchOnPageType = Model.Result.Where(x => x.ResultType == Constants.ResultType.MismatchOnPageType);
+        var mismatchOnPageDefinition = Model.Result.Where(x => x.ResultType == Constants.ResultType.MismatchOnPageDefinition);
+        var mismatchOnPageDefinitionType = Model.Result.Where(x => x.ResultType == Constants.ResultType.MismatchOnPageDefinitionType);
+
+        var identicalPageTypesColumnCssClass = identicalPageTypes.Any() ? " green" : " disabled";
+        var singlePageTypesColumnCssClass = mismatchOnPageType.Any() ? " blue" : " disabled";
+        var mismatchOnPageTypeColumnCssClass = mismatchOnPageType.Any() ? " red" : " disabled";
+        var mismatchOnPageDefinitionColumnCssClass = mismatchOnPageDefinition.Any() ? " red" : " disabled";
+        var mismatchOnPageDefinitionTypeColumnCssClass = mismatchOnPageDefinitionType.Any() ? " red" : " disabled";
+
+        <div class="col-sm-2 col-md-12 main">
+            <div class="row stats">
+                <div class="col-xs-6 col-sm-3 filesum">
+                    <h4>@Model.FileA.PageTypes.Count()</h4>
+                    <span class="text-muted">Found page types in File A: <strong>@Model.FileA.OriginalFileName</strong></span>
+                </div>
+                <div class="col-xs-6 col-sm-3 filesum">
+                    <h4>@Model.FileB.PageTypes.Count()</h4>
+                    <span class="text-muted">Found page types in File B: <strong>@Model.FileB.OriginalFileName</strong></span>
+                </div>
+                <div class="col-xs-6 col-sm-3 @identicalPageTypesColumnCssClass">
+                  <h4>@identicalPageTypes.Count()</h4>
+                   <span class="text-muted">Identical page types</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 @singlePageTypesColumnCssClass">
+                    <h4>@singlePageTypes.Count()</h4>
+                    <span class="text-muted">Single page types</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 @mismatchOnPageTypeColumnCssClass">
+                    <h4>@mismatchOnPageType.Count()</h4>
+                    <span class="text-muted">Mismatch on PageType</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 @mismatchOnPageDefinitionColumnCssClass">
+                    <h4>@mismatchOnPageDefinition.Count()</h4>
+                    <span class="text-muted">Mismatches on PageDefinition</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 @mismatchOnPageDefinitionTypeColumnCssClass">
+                    <h4>@mismatchOnPageDefinitionType.Count()</h4>
+                    <span class="text-muted">Mismatches on PageDefinitionTypes</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 main">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                @*<th>FileOrigin</th>*@
+                                <th>PageType.Name</th>
+                                <th>PageDefinition</th>
+                                <th>PageDefinitionType</th>
+                                @*<th>Result</th>*@
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var resultItem in Model.Result.OrderBy(x => x.ResultType).Reverse())
+                            {
+                                var trClass = "success";
+
+                                switch (resultItem.ResultType)
+                                {
+                                        case Constants.ResultType.Empty:
+                                        trClass = "warning";
+                                        break;
+                                        case Constants.ResultType.MismatchOnPageDefinition:
+                                        case Constants.ResultType.MismatchOnPageDefinitionType:
+                                        case Constants.ResultType.MismatchOnPageType:
+                                    case Constants.ResultType.NotFound:
+                                        trClass = "danger";
+                                        break;
+                                    case Constants.ResultType.Single:
+                                        trClass = "info";
+                                        break;
+                                }
+
+                                <tr class="@trClass">
+                                    @*<td>File @resultItem.Origin.ToString()</td>*@
+                                    <td>@resultItem.PageType.Name</td>
+                                    <td>
+                                        @if (resultItem.PageDefinition != null)
+                                        {
+                                            @resultItem.PageDefinition.Name
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (resultItem.PageDefinitionType != null)
+                                        {
+                                            @resultItem.PageDefinitionType.Name
+                                        }
+                                    </td>
+                                    @*<td>@resultItem.ResultType.ToString()</td>*@
+                    <td>@resultItem.Message</td>
+                    </tr>
+                    }
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+}

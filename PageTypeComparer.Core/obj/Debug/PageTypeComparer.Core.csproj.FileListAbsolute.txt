@@ -1,0 +1,5 @@
+C:\Projects\Tools\PageTypeComparer\PageTypeComparer.Core\bin\Debug\PageTypeComparer.Core.dll
+C:\Projects\Tools\PageTypeComparer\PageTypeComparer.Core\bin\Debug\PageTypeComparer.Core.pdb
+C:\Projects\Tools\PageTypeComparer\PageTypeComparer.Core\obj\Debug\PageTypeComparer.Core.csprojResolveAssemblyReference.cache
+C:\Projects\Tools\PageTypeComparer\PageTypeComparer.Core\obj\Debug\PageTypeComparer.Core.dll
+C:\Projects\Tools\PageTypeComparer\PageTypeComparer.Core\obj\Debug\PageTypeComparer.Core.pdb

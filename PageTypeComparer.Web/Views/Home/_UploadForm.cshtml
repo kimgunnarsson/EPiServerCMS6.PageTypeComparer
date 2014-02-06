@@ -1,0 +1,24 @@
+﻿<div class="jumbotron">
+    <div class="container">
+        <h1 class="page-header">Compare page types between EPiServer CMS 6 websites*</h1>
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <fieldset>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="fileA">Add source file</label><input type="file" name="fileA" />
+                        <p class="microcopy">File can be of type *.episerverdata or the specific file epix.xml<br />(or corresponding file with same XML tree format)</p>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="fileB">Add comparison file</label><input type="file" name="fileB" />
+                        <p class="microcopy">File can be of type *.episerverdata or the specific file epix.xml<br />(or corresponding file with same XML tree format)</p>
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="submit" class="btn btn-success" value="Upload and compare" />
+                    </div>
+                </div>
+            </fieldset>
+        }
+        
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿h1, a.navbar-brand { font-family: "Bitter", serif;}
+
+.jumbotron { margin-bottom: 0;}
+.jumbotron hr { color: #ccc; border-color: #ccc;}
+.jumbotron fieldset { padding: 20px 20px 5px;background-color: #fff;border: solid 1px #d5d5d5;border-left: 0;border-right: 0; font-family: "Open sans", Arial, Helvetica, sans-serif;}
+.jumbotron fieldset input.btn { margin-top: 15px;}
+
+.jumbotron fieldset p.microcopy {font: normal 0.7em/1.4em "Open sans", Arial, Helvetica, sans-serif;margin-top: 10px;clear: both;}
+
+.row.stats { border-bottom: solid 1px #f0f0f0;}
+.row.stats div { text-align: center;border-right: solid 1px #f0f0f0;padding: 10px 0 20px;border-bottom: solid 3px #ddd;width: 14.28571428571429%;}
+.row.stats div:last-child { border-left: none;}
+.row.stats div h4 { font: bold 3em/1em "Bitter", serif;}
+.row.stats div span { text-transform: uppercase;font-size: 0.7em;}
+
+.row.stats div.filesum { }
+.row.stats div.green { border-bottom-color: #47a447;}
+.row.stats div.red { border-bottom-color: #d9534f;}
+.row.stats div.blue { border-bottom-color: #3276b1;}
+.row.stats div.yellow { border-bottom-color: #f0ad4e;}
+.row.stats div.disabled h4 { color: #ddd;}
+
+.comparetable .row { background-color: #ddd;padding: 10px 0 0;}
+.comparetable .row h3 {font: bold 1em/1.5em "Open Sans", Arial, Helvetica, sans-serif; padding: 0;margin-top: 0;text-transform: uppercase;}
+
+.table tr td:first-child { border-left: 2px solid #444;}
+.table tr.warning td:first-child { border-left-color: #f0ad4e;}
+.table tr.danger td:first-child { border-left-color: #d9534f;}
+.table tr.info td:first-child { border-left-color: #3276b1;}
+.table tr.success td:first-child { border-left-color: #47a447;}
+
+#footer {padding:20px 0; background-color: #f5f5f5;text-align: center;}
