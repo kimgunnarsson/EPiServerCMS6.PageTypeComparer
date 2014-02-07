@@ -40,6 +40,9 @@ namespace PageTypeComparer.Core
 
             var comparer = new Comparer(FileA, FileB);
             Result = comparer.Result;
+
+            FileA.Dispose();
+            FileB.Dispose();
         }
 
     }

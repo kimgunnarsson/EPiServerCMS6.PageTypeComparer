@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -10,7 +11,7 @@ using System.Xml.Linq;
 
 namespace PageTypeComparer.Core.Entities
 {
-    public class ImportFile
+    public class ImportFile : IDisposable
     {
         public string ExtractionPath { get; set; }
         public string FilePath { get; set; }
@@ -18,6 +19,7 @@ namespace PageTypeComparer.Core.Entities
         public Common.Constants.FileOrigin Origin { get; set; }
 
         private List<PageType> _pageTypes;
+
         public List<PageType> PageTypes
         {
             get
@@ -29,7 +31,7 @@ namespace PageTypeComparer.Core.Entities
                 return _pageTypes;
             }
         }
-        
+
         public void BeginImport()
         {
             var readDocument = GetXmlDocument();
@@ -69,7 +71,10 @@ namespace PageTypeComparer.Core.Entities
         {
             if (!string.IsNullOrEmpty(ExtractionPath))
             {
-                if (!Directory.Exists(ExtractionPath)) {Directory.CreateDirectory(ExtractionPath); }
+                if (!Directory.Exists(ExtractionPath))
+                {
+                    Directory.CreateDirectory(ExtractionPath);
+                }
                 using (ZipArchive archive = ZipFile.OpenRead(importFileInfo.FullName))
                 {
                     foreach (ZipArchiveEntry entry in archive.Entries)
@@ -104,10 +109,31 @@ namespace PageTypeComparer.Core.Entities
             }
             else
             {
-               throw new FileNotFoundException("ImportFile not found.");
+                throw new FileNotFoundException("ImportFile not found.");
             }
         }
 
+        public void Dispose()
+        {
+            if (System.IO.File.Exists(this.FilePath))
+            {
+                var fileInfo = new FileInfo(this.FilePath);
+                if (fileInfo.Exists)
+                {
+                    var parentDirectory = new DirectoryInfo(fileInfo.DirectoryName);
+                    if (parentDirectory.Exists)
+                    {
+                        parentDirectory.Delete(true);
+                    }
+                }
+            }
+
+            if (System.IO.Directory.Exists(this.ExtractionPath))
+            {
+                System.IO.Directory.Delete(this.ExtractionPath);
+            }
+
+            GC.SuppressFinalize(this);
+        }
     }
-    
 }
